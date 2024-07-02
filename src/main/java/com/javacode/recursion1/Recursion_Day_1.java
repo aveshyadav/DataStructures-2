@@ -3,7 +3,7 @@ package com.javacode.recursion1;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BasicRecursion {
+public class Recursion_Day_1 {
 
 	public static void main(String[] args) {
 
@@ -82,7 +82,7 @@ public class BasicRecursion {
 //		int board[][] = new int[5][5];
 //		printKnightsTour(board, 2, 0, 1);
 	}
-
+	
 	public static void printKnightsTour(int board[][], int row, int col, int count) {
 
 		if (row < 0 || col < 0 || row >= board.length || col >= board.length || board[row][col] > 0) {
