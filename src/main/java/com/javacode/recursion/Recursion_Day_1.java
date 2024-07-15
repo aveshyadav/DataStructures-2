@@ -1,4 +1,4 @@
-package com.javacode.recursion1;
+package com.javacode.recursion;
 
 import java.util.ArrayList;
 import java.util.List;
