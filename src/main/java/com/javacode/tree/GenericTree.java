@@ -61,7 +61,46 @@ public class GenericTree {
 //		diamterOfTree(root);
 //		System.out.println("diameter: " + diameter);
 
+//		iterativePrePostOrderTravesral(root);
+
+		StringBuilder sb = new StringBuilder();
+		searlizeTree(root, sb);
+		String tree = sb.substring(0, sb.length() - 1).toString();
+		System.out.println(tree);
+
+		desearlizeTree(tree);
+	}
+
+	private static void desearlizeTree(String tree) {
+
+		String arr[] = tree.split(",");
+		Stack<Node> stack = new Stack<>();
+		Node root = new Node(Integer.parseInt(arr[0]));
+		stack.push(root);
+
+		int idx = 1;
+		while (!stack.isEmpty()) {
+
+			if (arr[idx].equals("-1")) {
+				stack.pop();
+			} else {
+				Node node = new Node(Integer.parseInt(arr[idx]));
+				stack.peek().childs.add(node);
+				stack.push(node);
+			}
+			idx++;
+		}
+
 		iterativePrePostOrderTravesral(root);
+	}
+
+	private static void searlizeTree(Node root, StringBuilder sb) {
+
+		sb.append(root.data + ",");
+		for (Node node : root.childs) {
+			searlizeTree(node, sb);
+		}
+		sb.append("-1,");
 	}
 
 	private static void iterativePrePostOrderTravesral(Node root) {

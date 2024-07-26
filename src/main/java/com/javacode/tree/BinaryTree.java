@@ -171,7 +171,6 @@ public class BinaryTree {
 		int rs = tiltOfBinaryTree(root.right);
 
 		tilt += Math.abs(ls - rs);
-		;
 		return ls + rs + root.data;
 	}
 
