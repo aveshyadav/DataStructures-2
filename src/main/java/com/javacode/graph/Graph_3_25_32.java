@@ -31,13 +31,38 @@ public class Graph_3_25_32 {
 //		int arr[][] = { { 20, -21, 14 }, { -19, 4, 19 }, { 22, -47, 24 }, { -19, 4, 19 } };
 //		rankTransformOfMatrix(arr);
 
-		int source[] = { 1, 2, 3, 4 };
-		int target[] = { 2, 1, 4, 5 };
-		int allowedSwaps[][] = { { 0, 1 }, { 2, 3 } };
+//		int source[] = { 1, 2, 3, 4 };
+//		int target[] = { 2, 1, 4, 5 };
+//		int allowedSwaps[][] = { { 0, 1 }, { 2, 3 } };
+//		minimumHammingDistance(source, target, allowedSwaps);
 
-		minimumHammingDistance(source, target, allowedSwaps);
+		accountsMerge();
+	}
 
-//		accountsMerge();
+	public static void accountsMerge() {
+		List<List<String>> accounts = new ArrayList<>();
+		List<String> list = new ArrayList<>();
+		list.add("John");
+		list.add("johnsmith@mail.com");
+		list.add("john_newyork@mail.com");
+		accounts.add(list);
+
+		list = new ArrayList<>();
+		list.add("John");
+		list.add("johnsmith@mail.com");
+		list.add("john00@mail.com");
+		accounts.add(list);
+
+		list = new ArrayList<>();
+		list.add("Mary");
+		list.add("mary@mail.com");
+		accounts.add(list);
+
+		list = new ArrayList<>();
+		list.add("John");
+		list.add("johnnybravo@mail.com");
+		accounts.add(list);
+
 	}
 
 	private static void minimumHammingDistance(int[] source, int[] target, int[][] allowedSwaps) {
