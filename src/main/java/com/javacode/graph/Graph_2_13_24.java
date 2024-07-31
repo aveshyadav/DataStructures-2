@@ -12,7 +12,7 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
 
-public class Graph_2_13_23 {
+public class Graph_2_13_24 {
 
 	public static void main(String[] args) {
 
@@ -46,8 +46,57 @@ public class Graph_2_13_23 {
 //		int arr[][] = { { 7, 1 }, { 7, 3 }, { 7, 8 }, { 7, 6 }, { 7, 5 }, { 5, 6 }, { 2, 3 }, { 3, 4 } };
 //		motherVertex(arr);
 
+//		int arr[][] = { { 1, 8 }, { 8, 5 }, { 5, 2 }, { 2, 1 }, { 2, 4 }, { 4, 3 }, { 3, 6 }, { 6, 7 }, { 7, 3 } };
+//		articulationPoint(arr, 8);
+
 		int arr[][] = { { 1, 8 }, { 8, 5 }, { 5, 2 }, { 2, 1 }, { 2, 4 }, { 4, 3 }, { 3, 6 }, { 6, 7 }, { 7, 3 } };
-		articulationPoint(arr, 8);
+		criticalConnections(arr, 9);
+	}
+
+	private static List<List<Integer>> bridges;
+
+	private static void criticalConnections(int[][] arr, int n) {
+
+		List<List<Integer>> graph = buildGraph2(arr);
+		par = new int[n];
+		low = new int[n];
+		disc = new int[n];
+		vis = new boolean[n];
+		time = 0;
+		bridges = new ArrayList<>();
+
+		criticalConnectionsHelper(graph, 1);
+		System.out.println(bridges);
+
+	}
+
+	private static void criticalConnectionsHelper(List<List<Integer>> graph, int src) {
+
+		low[src] = time;
+		disc[src] = time;
+		time++;
+		vis[src] = true;
+
+		for (int nbr : graph.get(src)) {
+
+			if (par[src] == nbr) {
+				continue;
+			} else if (vis[nbr] == true) {
+				low[src] = Math.min(low[src], disc[nbr]);
+			} else {
+
+				par[nbr] = src;
+				criticalConnectionsHelper(graph, nbr);
+				low[src] = Math.min(low[src], low[nbr]);
+
+				if (low[nbr] > disc[src]) {
+					List<Integer> list = new ArrayList<>();
+					list.add(src);
+					list.add(nbr);
+					bridges.add(list);
+				}
+			}
+		}
 	}
 
 	private static void articulationPoint(int[][] arr, int n) {
