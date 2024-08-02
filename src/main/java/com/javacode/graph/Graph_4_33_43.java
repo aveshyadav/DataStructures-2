@@ -3,6 +3,8 @@ package com.javacode.graph;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Stack;
 
 public class Graph_4_33_43 {
 
@@ -29,15 +31,42 @@ public class Graph_4_33_43 {
 //		int n = 7;
 //		int arr[][] = { { 0, 1 }, { 0, 2 }, { 1, 2 }, { 3, 4 }, { 4, 5 }, { 3, 5 } };
 //		numberOfOperationsToMakeNetwordConnected(arr, n);
-		
+
 		String arr[][] = { { "MUC", "LHR" }, { "JFK", "MUC" }, { "SFO", "SJC" }, { "LHR", "SFO" } };
 		reconstructItinerary(arr);
 	}
 
 	private static void reconstructItinerary(String[][] arr) {
 
-		
-		
+		Map<String, PriorityQueue<String>> map = new HashMap<>();
+		for (int i = 0; i < arr.length; i++) {
+			String src = arr[i][0];
+			String dest = arr[i][1];
+
+			map.putIfAbsent(src, new PriorityQueue<>());
+			PriorityQueue<String> pq = map.get(src);
+			pq.add(dest);
+			map.put(src, pq);
+		}
+
+		System.out.println(map);
+		Stack<String> ans = new Stack<>();
+		dfs(map, "JFK", ans);
+		System.out.println(ans);
+	}
+
+	private static void dfs(Map<String, PriorityQueue<String>> map, String src, Stack<String> ans) {
+
+		if (map.get(src) == null) {
+			ans.push(src);
+			return;
+		}
+
+		for (String str : map.get(src)) {
+			map.get(src).remove();
+			dfs(map, str, ans);
+		}
+		ans.push(src);
 	}
 
 	private static void numberOfOperationsToMakeNetwordConnected(int[][] arr, int n) {

@@ -36,10 +36,90 @@ public class Graph_3_25_32 {
 //		int allowedSwaps[][] = { { 0, 1 }, { 2, 3 } };
 //		minimumHammingDistance(source, target, allowedSwaps);
 
-		accountsMerge();
+		List<List<String>> list = accountsMergeList();
+		accountMerge(list);
 	}
 
-	public static void accountsMerge() {
+	private static void accountMerge(List<List<String>> list) {
+
+		int parent[] = new int[1001];
+		for (int i = 0; i < parent.length; i++) {
+			parent[i] = i;
+		}
+
+		Map<String, Integer> euid = new HashMap<>();
+		Map<String, String> etn = new HashMap<>();
+		int uid = 0;
+
+		for (int i = 0; i < list.size(); i++) {
+
+			String name = "";
+			for (int j = 0; j < list.get(i).size(); j++) {
+
+				String v1 = list.get(i).get(1);
+				String val = list.get(i).get(j);
+				if (j == 0) {
+					name = val;
+					continue;
+				}
+
+				if (!euid.containsKey(val)) {
+					euid.put(val, uid++);
+				}
+				etn.put(val, name);
+
+				int lx = findAccount(euid.get(v1), parent);
+				int ly = findAccount(euid.get(val), parent);
+
+				if (lx != ly) {
+					parent[lx] = ly;
+				}
+			}
+		}
+		System.out.println(euid);
+		System.out.println(etn);
+
+		Map<Integer, List<String>> pte = new HashMap<>();
+		for (String email : euid.keySet()) {
+
+			int id = euid.get(email);
+			int par = findAccount(id, parent);
+
+			if (!pte.containsKey(par)) {
+				pte.put(par, new ArrayList<>());
+			}
+			pte.get(par).add(email);
+		}
+
+		System.out.println(pte);
+
+		List<List<String>> ans = new ArrayList<>();
+		for (int par : pte.keySet()) {
+
+			List<String> emails = pte.get(par);
+			Collections.sort(emails);
+
+			String name = etn.get(pte.get(par).get(0));
+			List<String> ll = new ArrayList<>();
+			ll.add(name);
+			ll.addAll(emails);
+
+			ans.add(ll);
+		}
+		System.out.println(ans);
+	}
+
+	private static int findAccount(int x, int parent[]) {
+		if (parent[x] == x) {
+			return x;
+		}
+
+		int temp = findAccount(parent[x], parent);
+		parent[x] = temp;
+		return temp;
+	}
+
+	public static List<List<String>> accountsMergeList() {
 		List<List<String>> accounts = new ArrayList<>();
 		List<String> list = new ArrayList<>();
 		list.add("John");
@@ -63,6 +143,7 @@ public class Graph_3_25_32 {
 		list.add("johnnybravo@mail.com");
 		accounts.add(list);
 
+		return accounts;
 	}
 
 	private static void minimumHammingDistance(int[] source, int[] target, int[][] allowedSwaps) {
