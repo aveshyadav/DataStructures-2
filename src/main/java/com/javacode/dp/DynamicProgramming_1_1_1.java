@@ -72,7 +72,7 @@ public class DynamicProgramming_1_1_1 {
 //		countTilesWaysMx1(4);
 //		countTilesWaysMxN(3, 8);
 //		friendsPairing(4);
-		partitionInkSubset(5, 4);
+//		partitionInkSubset(5, 4);
 
 //		int arr[] = { 11, 6, 7, 19, 4, 1, 6, 18, 4 };
 //		int arr[] = { 1, 2, 3, 4, 5 };
@@ -83,6 +83,53 @@ public class DynamicProgramming_1_1_1 {
 //		int fee = 3;
 //		maxProfitWithTransFee(arr, fee);
 //		maxProfitMultiTransCoolDown(arr);
+
+//		int arr[] = { 30, 40, 43, 50, 45, 20, 26, 40, 80, 50, 30, 15, 10, 20, 40, 45, 71, 50, 55 };
+//		maxProfitTwoTrans(arr);
+
+		int arr[] = { 9, 6, 7, 6, 3, 8 };
+		int k = 3;
+		maxProfitKTrans(arr, k);
+	}
+
+	private static void maxProfitKTrans(int[] arr, int k) {
+
+		int dp[][] = new int[k + 1][arr.length];
+
+		for (int i = 1; i < dp.length; i++) {
+			for (int j = 1; j < dp[0].length; j++) {
+
+				dp[i][j] = dp[i][j - 1];
+				for (int d = 0; d < j; d++) {
+					dp[i][j] = Math.max(dp[i][j], dp[i - 1][d] + arr[j] - arr[d]);
+				}
+			}
+		}
+
+		display(dp);
+	}
+
+	private static void maxProfitTwoTrans(int[] arr) {
+
+		int dp1[] = new int[arr.length];
+		int min = arr[0];
+
+		for (int i = 1; i < arr.length; i++) {
+			dp1[i] = Math.max(dp1[i - 1], arr[i] - min);
+			min = Math.min(min, arr[i]);
+		}
+
+		int dp2[] = new int[arr.length];
+		int max = arr[arr.length - 1];
+
+		for (int i = dp2.length - 2; i >= 0; i--) {
+			dp2[i] = Math.max(dp2[i + 1], max - arr[i]);
+			max = Math.max(max, arr[i]);
+		}
+
+		for (int i = 0; i < dp1.length; i++) {
+			System.out.println(dp1[i] + " " + dp2[i] + " " + (dp1[i] + dp2[i]));
+		}
 	}
 
 	private static void maxProfitMultiTransCoolDown(int[] arr) {
@@ -111,7 +158,7 @@ public class DynamicProgramming_1_1_1 {
 
 			int tssp = ssp;
 			ssp = Math.max(ssp, bsp + arr[i] - fee);
-			bsp = Math.max(bsp, ssp - arr[i]);
+			bsp = Math.max(bsp, tssp - arr[i]);
 		}
 
 		System.out.println("Profit: " + ssp);
@@ -129,6 +176,10 @@ public class DynamicProgramming_1_1_1 {
 				buy = arr[i];
 			}
 			System.out.println("Max Profit: " + profit);
+		}
+
+		if (arr[arr.length - 1] > buy) {
+			profit += arr[arr.length - 1] - buy;
 		}
 
 		System.out.println("Max Profit: " + profit);
@@ -161,7 +212,7 @@ public class DynamicProgramming_1_1_1 {
 				} else {
 					if (i == j) {
 						dp[i][j] = 1;
-					} else {
+					} else if (j > i) {
 						dp[i][j] = (i * dp[i][j - 1]) + dp[i - 1][j - 1];
 					}
 				}
