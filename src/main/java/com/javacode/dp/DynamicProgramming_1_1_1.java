@@ -73,11 +73,102 @@ public class DynamicProgramming_1_1_1 {
 //		countTilesWaysMxN(3, 8);
 //		friendsPairing(4);
 		partitionInkSubset(5, 4);
+
+//		int arr[] = { 11, 6, 7, 19, 4, 1, 6, 18, 4 };
+//		int arr[] = { 1, 2, 3, 4, 5 };
+//		maxProfitOneTrans(arr);
+//		maxProfitMultiTrans(arr);
+
+//		int arr[] = { 10, 15, 17, 20, 16, 18, 22, 20, 22, 20, 23, 25 };
+//		int fee = 3;
+//		maxProfitWithTransFee(arr, fee);
+//		maxProfitMultiTransCoolDown(arr);
+	}
+
+	private static void maxProfitMultiTransCoolDown(int[] arr) {
+
+		int bsp = -arr[0];
+		int ssp = 0;
+		int csp = 0;
+
+		for (int i = 1; i < arr.length; i++) {
+
+			int tssp = ssp;
+			ssp = Math.max(bsp, bsp + arr[i]);
+			bsp = Math.max(csp - arr[i], bsp);
+			csp = Math.max(csp, tssp);
+		}
+
+		System.out.println("Profit: " + ssp);
+	}
+
+	private static void maxProfitWithTransFee(int[] arr, int fee) {
+
+		int bsp = -arr[0];
+		int ssp = 0;
+
+		for (int i = 1; i < arr.length; i++) {
+
+			int tssp = ssp;
+			ssp = Math.max(ssp, bsp + arr[i] - fee);
+			bsp = Math.max(bsp, ssp - arr[i]);
+		}
+
+		System.out.println("Profit: " + ssp);
+	}
+
+	private static void maxProfitMultiTrans(int[] arr) {
+
+		int profit = 0;
+		int buy = arr[0];
+
+		for (int i = 1; i < arr.length; i++) {
+
+			if (arr[i] < arr[i - 1]) {
+				profit += arr[i - 1] - buy;
+				buy = arr[i];
+			}
+			System.out.println("Max Profit: " + profit);
+		}
+
+		System.out.println("Max Profit: " + profit);
+	}
+
+	private static void maxProfitOneTrans(int[] arr) {
+
+		int min = arr[0];
+		int maxProfit = 0;
+
+		for (int i = 1; i < arr.length; i++) {
+
+			int todaysProfit = arr[i] - min;
+			min = Math.min(arr[i], min);
+			maxProfit = Math.max(maxProfit, todaysProfit);
+		}
+
+		System.out.println("Max Profit: " + maxProfit);
 	}
 
 	private static void partitionInkSubset(int n, int k) {
-		
-		
+
+		int dp[][] = new int[k + 1][n + 1];
+
+		for (int i = 1; i < dp.length; i++) {
+			for (int j = 1; j < dp[0].length; j++) {
+
+				if (i == 1) {
+					dp[i][j] = 1;
+				} else {
+					if (i == j) {
+						dp[i][j] = 1;
+					} else {
+						dp[i][j] = (i * dp[i][j - 1]) + dp[i - 1][j - 1];
+					}
+				}
+			}
+		}
+
+		display(dp);
 	}
 
 	private static void friendsPairing(int n) {
