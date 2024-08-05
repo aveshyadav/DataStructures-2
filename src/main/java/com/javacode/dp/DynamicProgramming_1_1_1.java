@@ -87,9 +87,9 @@ public class DynamicProgramming_1_1_1 {
 //		int arr[] = { 30, 40, 43, 50, 45, 20, 26, 40, 80, 50, 30, 15, 10, 20, 40, 45, 71, 50, 55 };
 //		maxProfitTwoTrans(arr);
 
-		int arr[] = { 9, 6, 7, 6, 3, 8 };
-		int k = 3;
-		maxProfitKTrans(arr, k);
+//		int arr[] = { 9, 6, 7, 6, 3, 8 };
+//		int k = 3;
+//		maxProfitKTrans(arr, k);
 	}
 
 	private static void maxProfitKTrans(int[] arr, int k) {
