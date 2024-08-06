@@ -27,9 +27,9 @@ public class DynamicProgramming_1_1_10 {
 //		int val[] = { 2, 5, 1, 3, 4 };
 //		printZeroOneKnapsackPath(wt, val, 7);
 
-		int arr[] = { 10, 22, 9, 33, 21, 50, 41, 60, 80, 1 };
+//		int arr[] = { 10, 22, 9, 33, 21, 50, 41, 60, 80, 1 };
 //		longestIncreasingSubsequence(arr);
-		printLongestIncreasingSubsequence(arr);
+//		printLongestIncreasingSubsequence(arr);
 //		maxSumInlongestIncreasingSubsequence(arr);
 
 		twoKeysKeboard(20);
@@ -37,6 +37,20 @@ public class DynamicProgramming_1_1_10 {
 
 	private static void twoKeysKeboard(int n) {
 
+		int ans = 0;
+		for (int i = 2; i * i <= n;) {
+			if (n % i == 0) {
+				ans += i;
+				n = n / i;
+			} else {
+				i++;
+			}
+		}
+
+		if (ans != 1) {
+			ans += n;
+		}
+		System.out.println("Min Steps: " + ans);
 	}
 
 	private static void maxSumInlongestIncreasingSubsequence(int[] arr) {
