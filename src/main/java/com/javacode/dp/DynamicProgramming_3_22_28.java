@@ -1,23 +1,329 @@
 package com.javacode.dp;
 
+import java.util.Arrays;
+
 public class DynamicProgramming_3_22_28 {
 
 	public static void main(String[] args) {
 
-		int arr[] = { 1, 5, 8, 9, 10, 17, 17, 20 };
-		rodCutting1(arr);
+//		int arr[] = { 1, 5, 8, 9, 10, 17, 17, 20 };
+//		rodCuttingTabulation(arr);
+//
+//		int memo[] = new int[arr.length + 1];
+//		Arrays.fill(memo, -1);
+//		int max = rodCuttingRecursive(arr, arr.length, memo);
+//		System.out.println("Max: " + max);
+//
+//		for (int i = 1; i < memo.length; i++) {
+//			System.out.print(memo[i] + " ");
+//		}
 
 //		String str = "abccbc";
 //		minPalindromicPartitioningCut1(str);
 //		minPalindromicPartitioningCut2(str);
+
+//		int memo[] = new int[str.length()];
+//		Arrays.fill(memo, -1);
+//		int minCut = minPalindromicPartitioningCutRecursive(str, 0, str.length() - 1, memo);
+//		System.out.println("Min Cut: " + minCut);
+
+//		int arr[] = { 1, 2, 3, 4, 5, 6 };
+//		int memo[][] = new int[arr.length + 1][arr.length + 1];
+//		for (int i = 0; i < memo.length; i++) {
+//			Arrays.fill(memo[i], -1);
+//		}
+//		int min = matrixChainMultiplicationRecursive(arr, 0, arr.length - 2, memo);
+//		System.out.println("Min: " + min);
+//		matrixChainMultiplicationTabulation(arr);
+
+//		int arr[] = { 2, 3, 1, 5, 6, 4 };
+//		int arr[] = { 3, 1, 5, 8 };
+//		int narr[] = new int[arr.length + 2];
+//		narr[0] = narr[arr.length + 1] = 1;
+//		for (int i = 0; i < arr.length; i++) {
+//			narr[i + 1] = arr[i];
+//		}
+//		int memo[][] = new int[arr.length + 1][arr.length + 1];
+//		for (int i = 0; i < memo.length; i++) {
+//			Arrays.fill(memo[i], -1);
+//		}
+//		int max = burstBallonRecursive(narr, 1, arr.length, memo);
+//		System.out.println("Max: " + max);
+//		burstBalloon(arr);
+		
+		
+	}
+
+	private static void burstBalloon(int[] arr) {
+
+		int dp[][] = new int[arr.length][arr.length];
+
+		for (int g = 0; g < dp.length; g++) {
+			for (int i = 0, j = g; j < dp.length; i++, j++) {
+
+				int max = Integer.MIN_VALUE;
+				for (int k = i; k <= j; k++) {
+
+					int left = (k == i) ? 0 : dp[i][k - 1];
+					int right = (k == j) ? 0 : dp[k + 1][j];
+
+					int val = (i == 0 ? 1 : arr[i - 1]) * arr[k] * (j == arr.length - 1 ? 1 : arr[j + 1]);
+					int tc = left + right + val;
+
+					max = Math.max(max, tc);
+				}
+
+				dp[i][j] = max;
+			}
+		}
+
+		display(dp);
+	}
+
+	private static int burstBallonRecursive(int arr[], int start, int end, int memo[][]) {
+
+		if (start > end) {
+			return 0;
+		}
+
+		if (memo[start][end] != -1) {
+			return memo[start][end];
+		}
+
+		int max = Integer.MIN_VALUE;
+		for (int k = start; k <= end; k++) {
+
+			int lc = burstBallonRecursive(arr, start, k - 1, memo);
+			int rc = burstBallonRecursive(arr, k + 1, end, memo);
+			int mc = arr[start - 1] * arr[k] * arr[end + 1];
+
+			int tc = lc + rc + mc;
+			max = Math.max(max, tc);
+		}
+
+		memo[start][end] = max;
+
+		return max;
+	}
+
+	private static void matrixChainMultiplicationTabulation(int[] arr) {
+
+		int dp[][] = new int[arr.length - 1][arr.length - 1];
+
+		for (int g = 0; g < dp.length; g++) {
+			for (int i = 0, j = g; j < dp.length; i++, j++) {
+
+				if (g == 0) {
+					dp[i][j] = 0;
+				} else if (g == 1) {
+					dp[i][j] = arr[i] * arr[j] * arr[j + 1];
+				} else {
+
+					int min = Integer.MAX_VALUE;
+					for (int k = i; k < j; k++) {
+						int cost = dp[i][k] + dp[k + 1][j];
+						int mc = arr[i] * arr[k + 1] * arr[j + 1];
+
+						min = Math.min(min, cost + mc);
+					}
+					dp[i][j] = min;
+				}
+			}
+		}
+
+		display(dp);
+	}
+
+	private static int matrixChainMultiplicationRecursive(int[] arr, int i, int j, int memo[][]) {
+
+		if (i == j) {
+			return 0;
+		}
+
+		if (memo[i][j] != -1) {
+			return memo[i][j];
+		}
+
+		int min = Integer.MAX_VALUE;
+		for (int k = i; k < j; k++) {
+
+			int lc = matrixChainMultiplicationRecursive(arr, i, k, memo);
+			int rc = matrixChainMultiplicationRecursive(arr, k + 1, j, memo);
+			int mc = arr[i] * arr[k + 1] * arr[j + 1];
+
+			min = Math.min(min, lc + rc + mc);
+		}
+		memo[i][j] = min;
+
+		return min;
+	}
+
+	private static int minPalindromicPartitioningCutRecursive(String str, int start, int end, int memo[]) {
+
+		if (start >= end || isPalindrome(str, start, end)) {
+			return 0;
+		}
+
+		if (memo[start] != -1) {
+			return memo[start];
+		}
+
+		int min = Integer.MAX_VALUE;
+		for (int i = start; i < end; i++) {
+
+			String sub = str.substring(start, i + 1);
+			if (isPalindrome(sub, 0, sub.length() - 1)) {
+				int rcut = minPalindromicPartitioningCutRecursive(str, i + 1, end, memo);
+				int tcut = rcut + 1;
+				min = Math.min(min, tcut);
+			}
+		}
+
+		memo[start] = min;
+		return min;
+	}
+
+	private static boolean isPalindrome(String str, int i, int j) {
+
+		while (i < j) {
+			if (str.charAt(i) != str.charAt(j)) {
+				return false;
+			}
+			i++;
+			j--;
+		}
+		return true;
+	}
+
+	private static void minPalindromicPartitioningCut2(String str) {
+
+		boolean dp1[][] = new boolean[str.length()][str.length()];
+		for (int g = 0; g < dp1.length; g++) {
+			for (int i = 0, j = g; j < dp1.length; i++, j++) {
+				if (g == 0) {
+					dp1[i][j] = true;
+				} else if (g == 1) {
+					dp1[i][j] = str.charAt(i) == str.charAt(j);
+				} else {
+					if (str.charAt(i) == str.charAt(j)) {
+						dp1[i][j] = dp1[i + 1][j - 1];
+					}
+				}
+			}
+		}
+
+		int dp[] = new int[str.length()];
+		dp[0] = 0;
+
+		for (int j = 1; j < dp.length; j++) {
+			int min = Integer.MAX_VALUE;
+			for (int i = j; i >= 1; i--) {
+				if (dp1[i][j] == true) {
+					min = Math.min(min, dp[i - 1]);
+				}
+			}
+			dp[j] = min + 1;
+		}
+
+		for (int i = 0; i < dp.length; i++) {
+			System.out.print(dp[i] + " ");
+		}
 	}
 
 	private static void minPalindromicPartitioningCut1(String str) {
 
+		boolean dp1[][] = new boolean[str.length()][str.length()];
+
+		for (int g = 0; g < dp1.length; g++) {
+			for (int i = 0, j = g; j < dp1.length; i++, j++) {
+
+				if (g == 0) {
+					dp1[i][j] = true;
+				} else if (g == 1) {
+					dp1[i][j] = str.charAt(i) == str.charAt(j);
+				} else {
+					if (str.charAt(i) == str.charAt(j)) {
+						dp1[i][j] = dp1[i + 1][j - 1];
+					}
+				}
+			}
+		}
+
+		int dp[][] = new int[str.length()][str.length()];
+
+		for (int g = 0; g < dp.length; g++) {
+			for (int i = 0, j = g; j < dp.length; i++, j++) {
+
+				if (g == 0) {
+					dp[i][j] = 0;
+				} else if (g == 1) {
+					dp[i][j] = str.charAt(i) == str.charAt(j) ? 0 : 1;
+				} else {
+					if (dp1[i][j] == true) {
+						dp[i][j] = 0;
+					} else {
+						int min = Integer.MAX_VALUE;
+						for (int k = i; k < j; k++) {
+							int cut = dp[i][k] + dp[k + 1][j] + 1;
+							min = Math.min(min, cut);
+						}
+						dp[i][j] = min;
+					}
+				}
+			}
+		}
+
+		display(dp);
 	}
 
-	private static void rodCutting1(int[] arr1) {
+	private static int rodCuttingRecursive(int arr[], int n, int memo[]) {
 
+		if (n <= 0) {
+			return 0;
+		}
+
+		if (memo[n] != -1) {
+			return memo[n];
+		}
+
+		int max = Integer.MIN_VALUE;
+		for (int i = 0; i < n; i++) {
+			int currVal = arr[i] + rodCuttingRecursive(arr, n - i - 1, memo);
+			max = Math.max(max, currVal);
+		}
+
+		memo[n] = max;
+		return max;
+	}
+
+	private static void rodCuttingTabulation(int[] arr1) {
+
+		int arr[] = new int[arr1.length + 1];
+		arr[0] = 0;
+		for (int i = 0; i < arr1.length; i++) {
+			arr[i + 1] = arr1[i];
+		}
+		int dp[] = new int[arr1.length + 1];
+		dp[0] = 0;
+		dp[1] = arr[1];
+
+		for (int i = 2; i < dp.length; i++) {
+
+			int li = 1;
+			int ri = i - 1;
+			int max = arr[i];
+			while (li <= ri) {
+				max = Math.max(max, dp[li] + dp[ri]);
+				li++;
+				ri--;
+			}
+			dp[i] = max;
+		}
+
+		for (int i = 0; i < dp.length; i++) {
+			System.out.print(dp[i] + " ");
+		}
+		System.out.println();
 	}
 
 	private static void display(int arr[][]) {
