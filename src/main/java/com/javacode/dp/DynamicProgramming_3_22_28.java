@@ -51,15 +51,72 @@ public class DynamicProgramming_3_22_28 {
 //		System.out.println("Max: " + max);
 //		burstBalloon(arr);
 
-		int arr[] = { 1, 3, 1, 4, 1, 5 };
-		minScoreOfPolygonTriangulationTabulation(arr);
+//		int arr[] = { 1, 3, 1, 4, 1, 5 };
+//		minScoreOfPolygonTriangulationTabulation(arr);
+//
+//		int memo[][] = new int[arr.length + 1][arr.length + 1];
+//		for (int i = 0; i < memo.length; i++) {
+//			Arrays.fill(memo[i], -1);
+//		}
+//		int min = minScoreOfPolygonTriangulationRecursive(arr, 0, arr.length - 1, memo);
+//		System.out.println("Min Score: " + min);
 
-		int memo[][] = new int[arr.length + 1][arr.length + 1];
-		for (int i = 0; i < memo.length; i++) {
-			Arrays.fill(memo[i], -1);
+		booleanParenthesization("TFTF", "&|^");
+	}
+
+	private static void booleanParenthesization(String str1, String str2) {
+
+		char ch1[] = str1.toCharArray();
+		char ch2[] = str2.toCharArray();
+
+		int dp1[][] = new int[ch1.length][ch1.length];
+		int dp2[][] = new int[ch1.length][ch1.length];
+
+		for (int g = 0; g < dp1.length; g++) {
+			for (int i = 0, j = g; j < dp1.length; i++, j++) {
+
+				if (g == 0) {
+
+					if (ch1[i] == 'T') {
+						dp1[i][j] = 1;
+						dp2[i][j] = 0;
+					} else {
+						dp1[i][j] = 0;
+						dp2[i][j] = 1;
+					}
+
+				} else {
+					for (int k = i; k < j; k++) {
+
+						int ltc = dp1[i][k];
+						int rtc = dp1[k + 1][j];
+						int lfc = dp2[i][k];
+						int rfc = dp2[k + 1][j];
+
+						if (ch2[k] == '&') {
+
+							dp1[i][j] += (ltc * rtc);
+							dp2[i][j] += (ltc * rfc) + (lfc * rtc) + (lfc * rfc);
+
+						} else if (ch2[k] == '|') {
+
+							dp1[i][j] += (ltc * rfc) + (lfc * rtc) + (ltc * rtc);
+							dp2[i][j] += (lfc * rfc);
+
+						} else {
+
+							dp1[i][j] += (lfc * rtc) + (ltc * rfc);
+							dp2[i][j] += (ltc * rtc) + (lfc * rfc);
+
+						}
+					}
+				}
+			}
 		}
-		int min = minScoreOfPolygonTriangulationRecursive(arr, 0, arr.length - 1, memo);
-		System.out.println("Min Score: " + min);
+
+		display(dp1);
+		System.out.println("------------------");
+		display(dp2);
 	}
 
 	private static int minScoreOfPolygonTriangulationRecursive(int arr[], int i, int j, int memo[][]) {
