@@ -61,7 +61,51 @@ public class DynamicProgramming_3_22_28 {
 //		int min = minScoreOfPolygonTriangulationRecursive(arr, 0, arr.length - 1, memo);
 //		System.out.println("Min Score: " + min);
 
-		booleanParenthesization("TFTF", "&|^");
+//		booleanParenthesization("TFTF", "&|^");
+
+		int arr1[] = { 1, 3, 4, 5, 6, 7, 8, 9, 11 };
+		int arr2[] = { 3, 6, 4, 8, 7, 3, 7, 4, 7 };
+
+//		int arr1[] = { 10, 20, 30, 40 };
+//		int arr2[] = { 3, 1, 2, 1 };
+
+		optimalBinarySearchTree(arr1, arr2);
+	}
+
+	private static void optimalBinarySearchTree(int[] arr1, int[] arr2) {
+
+		int dp[][] = new int[arr1.length][arr1.length];
+
+		for (int g = 0; g < dp.length; g++) {
+			for (int i = 0, j = g; j < dp.length; i++, j++) {
+
+				if (g == 0) {
+					dp[i][j] = arr2[i];
+				} else if (g == 1) {
+					int f1 = arr2[i];
+					int f2 = arr2[j];
+					dp[i][j] = Math.min(2 * f1 + f2, 2 * f2 + f1);
+				} else {
+
+					int min = Integer.MAX_VALUE;
+					int sum = 0;
+					for (int k = i; k <= j; k++) {
+						if (k == i) {
+							min = Math.min(min, dp[k + 1][j]);
+						} else if (k == j) {
+							min = Math.min(min, dp[i][k - 1]);
+						} else {
+							int tc = dp[i][k - 1] + dp[k + 1][j];
+							min = Math.min(min, tc);
+						}
+						sum += arr2[k];
+					}
+					dp[i][j] = min + sum;
+				}
+			}
+		}
+
+		display(dp);
 	}
 
 	private static void booleanParenthesization(String str1, String str2) {
