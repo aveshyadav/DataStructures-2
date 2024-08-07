@@ -50,8 +50,70 @@ public class DynamicProgramming_3_22_28 {
 //		int max = burstBallonRecursive(narr, 1, arr.length, memo);
 //		System.out.println("Max: " + max);
 //		burstBalloon(arr);
-		
-		
+
+		int arr[] = { 1, 3, 1, 4, 1, 5 };
+		minScoreOfPolygonTriangulationTabulation(arr);
+
+		int memo[][] = new int[arr.length + 1][arr.length + 1];
+		for (int i = 0; i < memo.length; i++) {
+			Arrays.fill(memo[i], -1);
+		}
+		int min = minScoreOfPolygonTriangulationRecursive(arr, 0, arr.length - 1, memo);
+		System.out.println("Min Score: " + min);
+	}
+
+	private static int minScoreOfPolygonTriangulationRecursive(int arr[], int i, int j, int memo[][]) {
+
+		if (j - i < 2) {
+			return 0;
+		}
+
+		if (memo[i][j] != -1) {
+			return memo[i][j];
+		}
+		int min = Integer.MAX_VALUE;
+		for (int k = i + 1; k < j; k++) {
+
+			int lc = minScoreOfPolygonTriangulationRecursive(arr, i, k, memo);
+			int rc = minScoreOfPolygonTriangulationRecursive(arr, k, j, memo);
+			int mc = arr[i] * arr[k] * arr[j];
+
+			int tc = lc + rc + mc;
+			min = Math.min(min, tc);
+		}
+
+		memo[i][j] = min;
+		return min;
+	}
+
+	private static void minScoreOfPolygonTriangulationTabulation(int[] arr) {
+
+		int dp[][] = new int[arr.length][arr.length];
+
+		for (int g = 2; g < dp.length; g++) {
+			for (int i = 0, j = g; j < dp.length; i++, j++) {
+
+				if (g == 2) {
+					dp[i][j] = arr[i] * arr[i + 1] * arr[j];
+				} else {
+
+					int min = Integer.MAX_VALUE;
+					for (int k = i + 1; k < j; k++) {
+
+						int lc = dp[i][k];
+						int rc = dp[k][j];
+						int mc = arr[i] * arr[k] * arr[j];
+
+						int tc = mc + lc + rc;
+						min = Math.min(min, tc);
+					}
+
+					dp[i][j] = min;
+				}
+			}
+		}
+
+		display(dp);
 	}
 
 	private static void burstBalloon(int[] arr) {
