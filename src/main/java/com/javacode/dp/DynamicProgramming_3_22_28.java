@@ -63,11 +63,11 @@ public class DynamicProgramming_3_22_28 {
 
 //		booleanParenthesization("TFTF", "&|^");
 
-		int arr1[] = { 1, 3, 4, 5, 6, 7, 8, 9, 11 };
-		int arr2[] = { 3, 6, 4, 8, 7, 3, 7, 4, 7 };
+//		int arr1[] = { 1, 3, 4, 5, 6, 7, 8, 9, 11 };
+//		int arr2[] = { 3, 6, 4, 8, 7, 3, 7, 4, 7 };
 
-//		int arr1[] = { 10, 20, 30, 40 };
-//		int arr2[] = { 3, 1, 2, 1 };
+		int arr1[] = { 10, 20, 30, 40 };
+		int arr2[] = { 3, 1, 2, 1 };
 
 		optimalBinarySearchTree(arr1, arr2);
 	}
