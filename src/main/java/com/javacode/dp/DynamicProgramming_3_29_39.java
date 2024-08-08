@@ -9,8 +9,8 @@ public class DynamicProgramming_3_29_39 {
 //		longestPalindromicSubsequence("abkccbc");
 //		countPalindromicSubsequences("abccbc");
 
-//		countPalindromicSubstring("abccbc");
 //		longestPalindromicSubstring("abccbc");
+//		countPalindromicSubstring("abccbc");
 
 		countDistinctSubsequences("abcbac");
 //		countDistinctPalindromicSubsequences("abacdaea");
@@ -25,33 +25,6 @@ public class DynamicProgramming_3_29_39 {
 	private static void countDistinctSubsequences(String str) {
 		
 		
-	}
-
-	private static void longestPalindromicSubstring(String str) {
-
-		boolean dp[][] = new boolean[str.length()][str.length()];
-		int lps = 0;
-
-		for (int g = 0; g < dp.length; g++) {
-			for (int i = 0, j = g; j < dp.length; i++, j++) {
-
-				if (g == 0) {
-					dp[i][j] = true;
-				} else if (g == 1) {
-					dp[i][j] = str.charAt(i) == str.charAt(j) ? true : false;
-				} else {
-					if (str.charAt(i) == str.charAt(j)) {
-						dp[i][j] = dp[i + 1][j - 1];
-					}
-				}
-
-				if (dp[i][j] == true) {
-					lps = Math.max(lps, j - i + 1);
-				}
-			}
-		}
-
-		System.out.println("LPS:  " + lps);
 	}
 
 	private static void countPalindromicSubstring(String str) {
@@ -79,6 +52,33 @@ public class DynamicProgramming_3_29_39 {
 		}
 
 		System.out.println("Count of PS: " + count);
+	}
+	
+	private static void longestPalindromicSubstring(String str) {
+
+		boolean dp[][] = new boolean[str.length()][str.length()];
+		int lps = 0;
+
+		for (int g = 0; g < dp.length; g++) {
+			for (int i = 0, j = g; j < dp.length; i++, j++) {
+
+				if (g == 0) {
+					dp[i][j] = true;
+				} else if (g == 1) {
+					dp[i][j] = str.charAt(i) == str.charAt(j) ? true : false;
+				} else {
+					if (str.charAt(i) == str.charAt(j)) {
+						dp[i][j] = dp[i + 1][j - 1];
+					}
+				}
+
+				if (dp[i][j] == true) {
+					lps = Math.max(lps, j - i + 1);
+				}
+			}
+		}
+
+		System.out.println("LPS:  " + lps);
 	}
 
 	private static void countPalindromicSubsequences(String str) {
