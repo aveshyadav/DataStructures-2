@@ -3,7 +3,7 @@ package com.javacode.dp;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DynamicProgramming_3_29_39 {
+public class DynamicProgramming_4_29_39 {
 
 	public static void main(String[] args) {
 
