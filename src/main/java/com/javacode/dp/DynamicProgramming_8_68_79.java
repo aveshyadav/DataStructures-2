@@ -30,13 +30,12 @@ public class DynamicProgramming_8_68_79 {
 //		String str = "abcabcabc";
 //		distinctEchoSubstring(str);
 
-//		int n = 7;
-//		int cuts[] = { 1, 3, 4, 5 };
-//		Arrays.sort(cuts);
-//		len = n;
-//		int dp[][] = new int[cuts.length + 1][cuts.length + 1];
-//		int min = minCostToCutSticks(n, cuts, 0, cuts.length, dp);
-//		System.out.println("Min Cost: " + min);
+		int n = 7;
+		int cuts[] = { 1, 3, 4, 5 };
+		Arrays.sort(cuts);
+		int dp[][] = new int[cuts.length + 1][cuts.length + 1];
+		int min = minCostToCutSticks(n, cuts, 0, cuts.length, dp);
+		System.out.println("Min Cost: " + min);
 
 //		int arr[] = { 3, 2, 4, 2, 3, 3 };
 //		deleteAndEarn(arr);
@@ -290,8 +289,6 @@ public class DynamicProgramming_8_68_79 {
 		System.out.println("Ans: " + Math.max(in, ex));
 	}
 
-	private static int len = 0;
-
 	private static int minCostToCutSticks(int n, int cuts[], int si, int ei, int dp[][]) {
 
 		if (si >= ei) {
@@ -306,7 +303,7 @@ public class DynamicProgramming_8_68_79 {
 		for (int i = si; i < ei; i++) {
 
 			int le = si == 0 ? 0 : cuts[si - 1];
-			int re = ei == cuts.length ? len : cuts[ei];
+			int re = ei == cuts.length ? n : cuts[ei];
 
 			int lcost = minCostToCutSticks(le, cuts, si, i, dp);
 			int rcost = minCostToCutSticks(re, cuts, i + 1, ei, dp);
