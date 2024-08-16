@@ -79,10 +79,12 @@ public class DynamicProgramming_1_1_1 {
 //		maxProfitOneTrans(arr);
 //		maxProfitMultiTrans(arr);
 
-//		int arr[] = { 10, 15, 17, 20, 16, 18, 22, 20, 22, 20, 23, 25 };
+		int arr[] = { 10, 15, 17, 20, 16, 18, 22, 20, 22, 20, 23, 25 };
 //		int fee = 3;
 //		maxProfitWithTransFee(arr, fee);
-//		maxProfitMultiTransCoolDown(arr);
+		
+//		int arr[] = { 11, 6, 7, 19, 4, 1, 6, 18, 4 };
+		maxProfitMultiTransCoolDown(arr);
 
 //		int arr[] = { 30, 40, 43, 50, 45, 20, 26, 40, 80, 50, 30, 15, 10, 20, 40, 45, 71, 50, 55 };
 //		maxProfitTwoTrans(arr);
@@ -141,7 +143,7 @@ public class DynamicProgramming_1_1_1 {
 		for (int i = 1; i < arr.length; i++) {
 
 			int tssp = ssp;
-			ssp = Math.max(bsp, bsp + arr[i]);
+			ssp = Math.max(ssp, bsp + arr[i]);
 			bsp = Math.max(csp - arr[i], bsp);
 			csp = Math.max(csp, tssp);
 		}
