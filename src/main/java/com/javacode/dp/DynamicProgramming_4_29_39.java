@@ -19,7 +19,7 @@ public class DynamicProgramming_4_29_39 {
 //		countDistinctPalindromicSubsequences("abacdaea");
 
 //		wildcardMatching("baaabab", "ba*a?");
-		regularExpressionMatching("mississippi", "mis*i.*p*i");
+//		regularExpressionMatching("mississippi", "mis*i.*p*i");
 
 //		longestCommonSubstring("pqabcxy", "xyzabcp");
 //		longestRepeatingSubsequence("abacbc");
