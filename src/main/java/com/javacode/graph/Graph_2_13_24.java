@@ -49,8 +49,8 @@ public class Graph_2_13_24 {
 //		int arr[][] = { { 1, 8 }, { 8, 5 }, { 5, 2 }, { 2, 1 }, { 2, 4 }, { 4, 3 }, { 3, 6 }, { 6, 7 }, { 7, 3 } };
 //		articulationPoint(arr, 8);
 
-		int arr[][] = { { 1, 8 }, { 8, 5 }, { 5, 2 }, { 2, 1 }, { 2, 4 }, { 4, 3 }, { 3, 6 }, { 6, 7 }, { 7, 3 } };
-		criticalConnections(arr, 9);
+//		int arr[][] = { { 1, 8 }, { 8, 5 }, { 5, 2 }, { 2, 1 }, { 2, 4 }, { 4, 3 }, { 3, 6 }, { 6, 7 }, { 7, 3 } };
+//		criticalConnections(arr, 9);
 	}
 
 	private static List<List<Integer>> bridges;

@@ -44,14 +44,14 @@ public class DynamicProgramming_3_19_30 {
 //		System.out.println(unboundedKnapsackRec(wt, val, wt.length - 1, cap, dp));
 //		unboundedKnapsackTab(wt, val, cap);
 
-//		int n = 8;
-//		int arr[] = { 3, 5, 8, 9, 10, 17, 17, 20 };
-//		int dp[][] = new int[arr.length][n + 1];
-//		for (int i = 0; i < dp.length; i++) {
-//			Arrays.fill(dp[i], -1);
-//		}
-//		System.out.println(rodCuttingRec(arr, arr.length - 1, n, dp));
-//		rodCuttingTab(arr, n);
+		int n = 8;
+		int arr[] = { 3, 5, 8, 9, 10, 17, 17, 20 };
+		int dp[][] = new int[arr.length][n + 1];
+		for (int i = 0; i < dp.length; i++) {
+			Arrays.fill(dp[i], -1);
+		}
+		System.out.println(rodCuttingRec(arr, arr.length - 1, n, dp));
+		rodCuttingTab(arr, n);
 
 //		longestCommonSubsequence("abcd", "aebd");
 //		printLongestCommonSubsequence("abcd", "abed");

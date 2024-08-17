@@ -54,6 +54,68 @@ public class DynamicProgramming_4_31_40 {
 
 //		int arr[] = { 11, 6, 7, 19, 4, 1, 6, 18, 4 };
 //		maxProfitMultiTransCoolDown(arr);
+
+		int k = 3;
+		int arr[] = { 3, 3, 5, 0, 3, 1, 4 };
+		int dp[][] = new int[arr.length + 1][2 * k];
+		for (int i = 0; i < dp.length; i++) {
+			Arrays.fill(dp[i], -1);
+		}
+		System.out.println(maxProfitKTransRec2(arr, 0, 0, k, dp));
+		maxProfitKTransTab2(arr, k);
+
+	}
+
+	private static void maxProfitKTransTab2(int arr[], int k) {
+
+		int dp[][][] = new int[arr.length + 1][2][k + 1];
+
+		for (int i = arr.length - 1; i >= 0; i--) {
+			for (int buy = 1; buy >= 0; buy--) {
+				for (int cap = 1; cap <= k; cap++) {
+
+					if (buy == 1) {
+						int v1 = dp[i + 1][buy][cap];
+						int v2 = -arr[i] + dp[i + 1][0][cap];
+
+						dp[i][buy][cap] = Math.max(v1, v2);
+					} else {
+
+						int v1 = dp[i + 1][buy][cap];
+						int v2 = arr[i] + dp[i + 1][1][cap - 1];
+
+						dp[i][buy][cap] = Math.max(v1, v2);
+					}
+				}
+			}
+		}
+
+		System.out.println(dp[0][1][k]);
+
+	}
+
+	private static int maxProfitKTransRec2(int arr[], int i, int trans, int cap, int dp[][]) {
+
+		if (i == arr.length || trans == 2 * cap) {
+			return 0;
+		}
+
+		if (dp[i][trans] != -1) {
+			return dp[i][trans];
+		}
+
+		if (trans % 2 == 0) {
+			int v1 = maxProfitKTransRec2(arr, i + 1, trans, cap, dp);
+			int v2 = -arr[i] + maxProfitKTransRec2(arr, i + 1, trans + 1, cap, dp);
+
+			return dp[i][trans] = Math.max(v1, v2);
+		} else {
+
+			int v1 = maxProfitKTransRec2(arr, i + 1, trans, cap, dp);
+			int v2 = arr[i] + maxProfitKTransRec2(arr, i + 1, trans + 1, cap, dp);
+
+			return dp[i][trans] = Math.max(v1, v2);
+		}
 	}
 
 	private static void maxProfitMultiTransCoolDown(int[] arr) {
