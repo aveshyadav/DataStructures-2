@@ -51,7 +51,7 @@ public class DynamicProgramming_4_31_40 {
 //		int arr[] = { 10, 15, 17, 20, 16, 18, 22, 20, 22, 20, 23, 25 };
 //		int fee = 3;
 //		maxProfitWithTransFee(arr, fee);
-		
+
 //		int arr[] = { 11, 6, 7, 19, 4, 1, 6, 18, 4 };
 //		maxProfitMultiTransCoolDown(arr);
 	}

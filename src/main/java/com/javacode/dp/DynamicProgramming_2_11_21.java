@@ -20,7 +20,7 @@ public class DynamicProgramming_2_11_21 {
 //		perfectSqaures(11);
 //		printCatalanNumbers(8);
 //		countNumberOfBST(8);
-		countValleysAndMountain(8);
+//		countValleysAndMountain(8);
 
 	}
 

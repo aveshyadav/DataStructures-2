@@ -32,7 +32,7 @@ public class DynamicProgramming_1_1_10 {
 //		printLongestIncreasingSubsequence(arr);
 //		maxSumInlongestIncreasingSubsequence(arr);
 
-		twoKeysKeboard(20);
+//		twoKeysKeboard(20);
 	}
 
 	private static void twoKeysKeboard(int n) {
