@@ -119,6 +119,38 @@ public class LinkedListDSA {
 		System.out.print(curr.data + " ");
 	}
 
+	public void kReverse(int k) {
+
+		LinkedListDSA prev = null;
+
+		while (size > 0) {
+
+			LinkedListDSA curr = new LinkedListDSA();
+			if (size >= k) {
+				for (int i = 0; i < k; i++) {
+					int val = this.getFirst();
+					this.removeFirst();
+					curr.addFirst(val);
+				}
+			} else {
+				while (size > 0) {
+					int val = this.getFirst();
+					this.removeFirst();
+					curr.addLast(val);
+				}
+			}
+
+			if (prev == null) {
+				prev = curr;
+			} else {
+				prev.tail.next = curr.head;
+				prev.tail = curr.tail;
+				prev.size += curr.size;
+			}
+		}
+
+		prev.display();
+	}
 
 	public LinkedListDSA oddEvenList() {
 
