@@ -44,9 +44,9 @@ public class DynamicProgramming_6_48_56 {
 //		System.out.println("Result: " + res);
 //		distinctTransformationTab(s1, s2);
 
-		letterCombination(3);
+//		letterCombination(3);
 
-//		maxDiffZerosOnes("11000010001");
+		maxDiffZerosOnes("11000010001");
 	}
 
 	private static void maxDiffZerosOnes(String str) {
