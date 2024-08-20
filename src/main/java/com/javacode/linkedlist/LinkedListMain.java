@@ -112,20 +112,20 @@ public class LinkedListMain {
 //		LinkedListDSA res = list1.oddEvenList();
 //		res.display();
 
-		LinkedListDSA list1 = new LinkedListDSA();
-		list1.addLast(1);
-		list1.addLast(2);
-		list1.addLast(3);
-		list1.addLast(4);
-		list1.addLast(5);
-		list1.addLast(6);
-		list1.addLast(7);
-		list1.addLast(8);
-		list1.addLast(9);
-		list1.addLast(10);
-		list1.addLast(11);
-		list1.kReverse(3);
-		list1.display();
+//		LinkedListDSA list1 = new LinkedListDSA();
+//		list1.addLast(1);
+//		list1.addLast(2);
+//		list1.addLast(3);
+//		list1.addLast(4);
+//		list1.addLast(5);
+//		list1.addLast(6);
+//		list1.addLast(7);
+//		list1.addLast(8);
+//		list1.addLast(9);
+//		list1.addLast(10);
+//		list1.addLast(11);
+//		list1.kReverse(3);
+//		list1.display();
 
 //		list.displayReverse(list.head);
 //		list.reverseRecursivePR();
