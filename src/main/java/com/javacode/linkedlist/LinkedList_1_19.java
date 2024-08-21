@@ -229,10 +229,7 @@ public class LinkedList_1_19 {
 
 	private static Node mergeSort(Node head) {
 
-		if (head == null) {
-			return null;
-		}
-		if (head.next == null) {
+		if (head == null || head.next == null) {
 			return head;
 		}
 
