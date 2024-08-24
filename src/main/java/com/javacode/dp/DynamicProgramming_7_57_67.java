@@ -28,8 +28,8 @@ public class DynamicProgramming_7_57_67 {
 //		int arr[] = { 2, 5, 9, 12, 15, 18, 22, 26, 30, 34, 36, 38, 40, 41 };
 //		arithmeticSlices1(arr);
 
-//		int arr[] = { 4, 2, 3, 5, 2, 6, 7, 9, 8, 11 };
-//		arithmeticSlices2(arr);
+		int arr[] = { 4, 2, 3, 5, 2, 6, 7, 9, 8, 11 };
+		arithmeticSlices2(arr);
 
 //		String str = "loves pep coding pepcoding ice cream icecream man go mango";
 //		String ques = "pepcodinglovesmangoicecream";
@@ -54,7 +54,7 @@ public class DynamicProgramming_7_57_67 {
 //		superUglyNumbers(arr, 13);
 //		superUglyNumbers2(arr, 13);
 
-		findWaterInGlass(7, 3, 1);
+//		findWaterInGlass(7, 3, 1);
 	}
 
 	private static void findWaterInGlass(int k, int r, int c) {
