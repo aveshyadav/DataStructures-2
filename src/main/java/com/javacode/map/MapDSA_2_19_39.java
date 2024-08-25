@@ -170,11 +170,46 @@ public class MapDSA_2_19_39 {
 		System.out.println("Count: " + count);
 	}
 
-	private static void fractionToRecurringDecimal(int i, int j) {
-		
-		
-		
-	}	
+	private static void fractionToRecurringDecimal(int num, int denom) {
+
+		StringBuilder sb = new StringBuilder();
+		Map<Integer, Integer> map = new HashMap<>();
+
+		if (num < 0 || denom < 0) {
+			denom = Math.abs(denom);
+			sb.append("-");
+		}
+
+		int quot = num / denom;
+		sb.append(quot);
+
+		int rem = num % denom;
+		if (rem != 0) {
+			sb.append(".");
+
+			map.put(rem, sb.length());
+			while (rem != 0) {
+
+				while (rem < denom) {
+					rem = rem * 10;
+				}
+
+				quot = rem / denom;
+				sb.append(quot);
+				rem = rem % denom;
+
+				if (map.containsKey(rem)) {
+					sb.insert(map.get(rem), "(");
+					sb.insert(sb.length(), ")");
+					break;
+				}
+
+				map.put(rem, sb.length());
+			}
+		}
+
+		System.out.println("Result: " + sb.toString());
+	}
 
 	private static void pairsWithEqualSum(int[] arr) {
 
