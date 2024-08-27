@@ -2,10 +2,12 @@ package com.javacode.map;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Set;
 
 public class MapDSA_3_40_54 {
@@ -53,8 +55,69 @@ public class MapDSA_3_40_54 {
 	}
 
 	private static void getSkyline(int[][] arr) {
-		
-		
+
+		List<Pair> list = new ArrayList<>();
+		for (int i = 0; i < arr.length; i++) {
+
+			int st = arr[i][0];
+			int et = arr[i][1];
+			int ht = arr[i][2];
+
+			list.add(new Pair(st, -ht));
+			list.add(new Pair(et, ht));
+		}
+
+		Collections.sort(list);
+		System.out.println(list);
+
+		int cht = 0;
+		List<Pair> ans = new ArrayList<>();
+		PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+		pq.add(0);
+
+		for (int i = 0; i < list.size(); i++) {
+
+			Pair mp = list.get(i);
+
+			if (mp.ht < 0) {
+				pq.add(-mp.ht);
+			} else {
+				pq.remove(mp.ht);
+			}
+
+			if (cht != pq.peek()) {
+				cht = pq.peek();
+				ans.add(new Pair(mp.idx, cht));
+			}
+		}
+
+		System.out.println(ans);
+	}
+
+	private static class Pair implements Comparable<Pair> {
+
+		int idx;
+		int ht;
+
+		public Pair(int idx, int ht) {
+			this.idx = idx;
+			this.ht = ht;
+		}
+
+		@Override
+		public int compareTo(Pair o) {
+
+			if (this.idx == o.idx) {
+				return this.ht - o.ht;
+			} else {
+				return this.idx - o.idx;
+			}
+		}
+
+		@Override
+		public String toString() {
+			return "[" + idx + "  " + ht + "]";
+		}
 	}
 
 	private static void brickWall(int[][] arr) {
