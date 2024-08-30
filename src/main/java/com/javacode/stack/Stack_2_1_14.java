@@ -1,5 +1,7 @@
 package com.javacode.stack;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class Stack_2_1_14 {
@@ -43,12 +45,13 @@ public class Stack_2_1_14 {
 
 //		String str = "(ed(et(oc))el)";
 //		reverseParentheses(str);
+//		reverseParentheses2(str);
 
 //		String str = "le((e(t(c)o)de)";
 //		minRemoveToMakeValid(str);
 
-		int arr[] = { 100, 80, 60, 70, 60, 75, 85 };
-		onlineStockSpan(arr);
+//		int arr[] = { 100, 80, 60, 70, 60, 75, 85 };
+//		onlineStockSpan(arr);
 	}
 
 	private static void onlineStockSpan(int[] arr) {
@@ -107,6 +110,35 @@ public class Stack_2_1_14 {
 			}
 		}
 		System.out.println(sb.toString());
+	}
+
+	private static void reverseParentheses2(String str) {
+
+		Stack<Character> stack = new Stack<>();
+		for (int i = 0; i < str.length(); i++) {
+
+			char ch = str.charAt(i);
+			if (ch == ')') {
+
+				Queue<Character> queue = new LinkedList<>();
+				while (stack.peek() != '(') {
+					queue.add(stack.pop());
+				}
+				stack.pop();
+
+				while (queue.size() > 0) {
+					stack.push(queue.remove());
+				}
+			} else {
+				stack.push(ch);
+			}
+		}
+
+		String ans = "";
+		while (stack.size() > 0) {
+			ans = stack.pop() + ans;
+		}
+		System.out.println(ans);
 	}
 
 	private static void reverseParentheses(String str) {
