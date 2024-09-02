@@ -48,9 +48,9 @@ public class Sorting_1_1_1 {
 //		int arr[] = { 9, -48, 100, 43, 84, 74, 86, 34, -37, 60, -29, 44 };
 //		targetSumPair(arr, 160);
 
-		int arr[] = { 30, 40, 50, 10, 20, 25 };
-		int pi = pivotOfSortedRotatedArray(arr, 0, arr.length - 1);
-		System.out.println("Pivot: " + pi);
+//		int arr[] = { 30, 40, 50, 10, 20, 25 };
+//		int pi = pivotOfSortedRotatedArray(arr, 0, arr.length - 1);
+//		System.out.println("Pivot: " + pi);
 	}
 
 	private static int pivotOfSortedRotatedArray(int arr[], int lo, int hi) {
