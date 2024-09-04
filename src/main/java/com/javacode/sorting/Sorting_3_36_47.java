@@ -2,6 +2,7 @@ package com.javacode.sorting;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,8 @@ public class Sorting_3_36_47 {
 
 //		int arr1[] = { 3, 9, 2, 4, 11 };
 //		int arr2[] = { 1, 8, 5 };
+//		int arr1[] = { 581030105, 557810404, 146319451, 908194298, 500782188, 657821123 };
+//		int arr2[] = { 102246882, 269406752, 816731566, 884936716, 807130337, 578354438 };
 //		findRadius(arr1, arr2);
 
 //		int roll[] = { 3, 2, 4, 1, 5 };
@@ -44,6 +47,7 @@ public class Sorting_3_36_47 {
 
 //		int arr[] = { 3, 2, 4, 1 };
 //		pancakeSort(arr);
+
 	}
 
 	private static void pancakeSort(int arr[]) {
@@ -68,7 +72,6 @@ public class Sorting_3_36_47 {
 		}
 		System.out.println(list);
 	}
-	
 
 	private static void reverse(int arr[], int si, int hi) {
 
@@ -99,6 +102,31 @@ public class Sorting_3_36_47 {
 		System.out.println(list);
 	}
 
+	private static void allCellsDistOrder(int row, int col, int rCenter, int cCenter) {
+
+		int ans[][] = new int[row * col][2];
+
+		for (int i = 0; i < row; i++) {
+			for (int j = 0; j < col; j++) {
+
+				int cellNo = i * col + j;
+				ans[cellNo][0] = i;
+				ans[cellNo][1] = j;
+			}
+		}
+
+		Arrays.sort(ans, (a, b) -> {
+
+			int d1 = Math.abs(a[0] - rCenter) + Math.abs(a[1] - cCenter);
+			int d2 = Math.abs(b[0] - rCenter) + Math.abs(b[1] - cCenter);
+
+			return d1 - d2;
+		});
+
+		for (int i = 0; i < ans.length; i++) {
+			System.out.println(ans[i][0] + " " + ans[i][1]);
+		}
+	}
 
 	private static void toppersOfClass(int[] arr, int k) {
 
@@ -183,7 +211,6 @@ public class Sorting_3_36_47 {
 
 		System.out.println(list);
 	}
-	
 
 	private static void largestPerimeter(int[] arr) {
 
@@ -203,8 +230,91 @@ public class Sorting_3_36_47 {
 		System.out.println("Largest Permieter: " + max);
 	}
 
+	private static void largestNumber(int[] arr) {
+
+		String sarr[] = new String[arr.length];
+		for (int i = 0; i < arr.length; i++) {
+			sarr[i] = arr[i] + "";
+		}
+
+		Arrays.sort(sarr, new Comparator<String>() {
+
+			@Override
+			public int compare(String o1, String o2) {
+
+				int v1 = Integer.parseInt(o1 + o2);
+				int v2 = Integer.parseInt(o2 + o1);
+
+				if (v1 > v2) {
+					return -1;
+				} else if (v1 < v2) {
+					return 1;
+				}
+				return 0;
+			}
+		});
+
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < sarr.length; i++) {
+			sb.append(sarr[i]);
+		}
+		System.out.println(sb.toString());
+	}
+
+	private static void punishTheStudents(int[] roll, int[] marks, int avg) {
+
+		int sum = 0;
+		int count = 0;
+		for (int i = 0; i < roll.length; i++) {
+			for (int j = 0; j < roll.length - 1; j++) {
+
+				if (roll[j] > roll[j + 1]) {
+					int temp = roll[j];
+					roll[j] = roll[j + 1];
+					roll[j + 1] = temp;
+					count += 2;
+				}
+			}
+			sum += marks[i];
+		}
+
+		int navg = (sum - count) / roll.length;
+		boolean willPunish = navg >= avg;
+		System.out.println("Swaps: " + count + ", Marks: " + sum + ", New Avg: " + navg);
+		System.out.println("Will Punish: " + willPunish);
+	}
+
 	private static void findRadius(int[] arr1, int[] arr2) {
 
+		Arrays.sort(arr2);
+		int radius = Integer.MIN_VALUE;
+		for (int i = 0; i < arr1.length; i++) {
+
+			int curr = arr1[i];
+			int lo = 0;
+			int hi = arr2.length - 1;
+			int min = Integer.MAX_VALUE;
+
+			while (lo <= hi) {
+
+				int mid = (lo + hi) / 2;
+				int diff = Math.abs(curr - arr2[mid]);
+				min = Math.min(min, diff);
+				System.out.print(diff + "-");
+
+				if (curr > arr2[mid]) {
+					lo = mid + 1;
+				} else {
+					hi = mid - 1;
+				}
+			}
+
+			System.out.println();
+			System.out.println(arr1[i] + " " + min);
+			radius = Math.max(radius, min);
+		}
+
+		System.out.println("Min Radius: " + radius);
 	}
 
 	private static void findMaxOnesRow(int[][] mat) {
