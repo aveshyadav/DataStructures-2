@@ -14,8 +14,8 @@ public class Graph_3_25_32 {
 //		int arr[][] = { { 1, 2 }, { 3, 4 }, { 1, 3 }, { 5, 6 } };
 //		dsuAlgo(arr, 6);
 
-//		int arr[][] = { { 3, 1, 2 }, { 1, 1, 3 }, { 1, 2, 4 }, { 2, 3, 4 }, { 1, 1, 2 }, { 3, 2, 3 } };
-//		removeMaxEdges(arr, 4);
+		int arr[][] = { { 3, 1, 2 }, { 1, 1, 3 }, { 1, 2, 4 }, { 2, 3, 4 }, { 1, 1, 2 }, { 3, 2, 3 } };
+		removeMaxEdges(arr, 4);
 
 //		int arr[][] = { { 0, 3 }, { 1, 2 }, { 0, 2 }, { 1, 4 }, { 2, 3 }, { 1, 3 } };
 //		numberOfIsland2(arr, 5);
@@ -36,8 +36,8 @@ public class Graph_3_25_32 {
 //		int allowedSwaps[][] = { { 0, 1 }, { 2, 3 } };
 //		minimumHammingDistance(source, target, allowedSwaps);
 
-		List<List<String>> list = accountsMergeList();
-		accountMerge(list);
+//		List<List<String>> list = accountsMergeList();
+//		accountMerge(list);
 	}
 
 	private static void accountMerge(List<List<String>> list) {
@@ -610,7 +610,7 @@ public class Graph_3_25_32 {
 			}
 		}
 
-		if (mergeda == n - 1 && mergedb == n - 1) {
+		if (mergeda != n - 1 || mergedb != n - 1) {
 			System.out.println("Removed Edge: " + -1);
 		} else {
 			System.out.println("Removed Edge: " + removeCountEdge);
